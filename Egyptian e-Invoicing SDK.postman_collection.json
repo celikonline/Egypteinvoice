@@ -1,0 +1,749 @@
+{
+	"info": {
+		"_postman_id": "2353ad76-6ce8-4074-8b15-8c1efe327be9",
+		"name": "Egyptian e-Invoicing SDK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Login as Taxpayer System",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"generatedAccessToken\", jsonData.access_token);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{clientId}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{clientSecret}}",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "Mcs.Invoicing.Api",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{idSrvBaseUrl}}/connect/token",
+					"host": [
+						"{{idSrvBaseUrl}}"
+					],
+					"path": [
+						"connect",
+						"token"
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/01-login-as-taxpayer-system/)"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get Document Types",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ar",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"documentTypeCodeName\": \"creditupdated\",\r\n    \"namePrimaryLang\": \"CreditEn\",\r\n    \"nameSecondaryLang\": \"CreditAr\",\r\n    \"descriptionPrimaryLang\": \"Des-creditEn\",\r\n    \"descriptionSecondaryLang\": \"Des-creditAr\",\r\n    \"activeFrom\": \"2020-06-09T07:38:54.836Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documenttypes",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documenttypes"
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/02-get-document-types/)"
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get Document Type",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documenttypes/:documentTypeID",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documenttypes",
+						":documentTypeID"
+					],
+					"variable": [
+						{
+							"key": "documentTypeID",
+							"value": "2"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/03-get-document-type/)"
+			},
+			"response": []
+		},
+		{
+			"name": "4. Get Document Type Version",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "ar",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documenttypes/:documentTypeID/versions/:documentTypeVersionID",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documenttypes",
+						":documentTypeID",
+						"versions",
+						":documentTypeVersionID"
+					],
+					"variable": [
+						{
+							"key": "documentTypeID",
+							"value": "2"
+						},
+						{
+							"key": "documentTypeVersionID",
+							"value": "1"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/04-get-document-type-version/)"
+			},
+			"response": []
+		},
+		{
+			"name": "5.1 Submit Documents (JSON)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"documents\": [\r\n    {\r\n      \"issuer\": {\r\n        \"branchAddress\": {\r\n          \"branchID\": \"BID0\",\r\n          \"country\": \"EG\",          \r\n          \"addressLine1\": \"Address 2-0 line 1\",\r\n          \"addressLine2\": \"Address 2-0 line 2\",\r\n          \"regionCity\": \"Cairo\",\r\n          \"postalCode\": \"098607\"\r\n        },\r\n        \"type\": \"B\",\r\n        \"id\": \"232232\",\r\n        \"name\": \"Issuer Name 0\"\r\n      },\r\n      \"receiver\": {\r\n        \"address\": {         \r\n          \"addressLine1\": \"Address 1-0 line 1\",\r\n          \"addressLine2\": \"Address 1-0 line 2\",\r\n          \"regionCity\": \"Cairo\",\r\n          \"postalCode\": \"098607\",\r\n          \"country\": \"EGY\"\r\n        },        \r\n        \"type\": \"B\",\r\n        \"id\": \"100449093\",\r\n        \"name\": \"Receiver name 0\"\r\n      },\r\n      \"documentType\": \"i\",\r\n      \"documentTypeVersion\": \"1.0\",\r\n      \"dateTimeIssued\": \"2015-02-13T13:15:00Z\",\r\n      \"taxActivityCode\": \"ACC0\",\r\n      \"internalID\": \"IID0\",\r\n      \"poReference\": \"1230\",\r\n      \"references\": [\r\n        \"RWEPEW622912Y31BJ7HQC3CE10\",\r\n        \"HTNPXC1P5SC3WMQKNWQQC3CE10\"\r\n      ],\r\n      \"invoiceLines\": [\r\n        {\r\n          \"description\": \"Invoice line description 0\",\r\n          \"itemType\": \"GPC\",\r\n          \"itemCode\": \"123abc10\",\r\n          \"unitType\": \"Kg\",\r\n          \"quantity\": 10.5,\r\n          \"unitValue\": {\r\n            \"currencySold\": \"EUR\",\r\n            \"currencyEGP\": 10,\r\n            \"currencyExchangeRate\": 10\r\n          },\r\n          \"factoryUnitValue\": {\r\n            \"currencySold\": \"EUR\",\r\n            \"currencyEGP\": 10.5,\r\n            \"currencyExchangeRate\": 10.5\r\n          },\r\n          \"total\": 10.5,\r\n          \"discount\": {\r\n            \"rate\": 100,\r\n            \"amount\": 10.8\r\n          },\r\n          \"taxableItems\": [\r\n            {\r\n              \"taxType\": \"VAT\",\r\n              \"amount\": 10.5,\r\n              \"reason\": \"tax 1\",\r\n              \"rate\": 100\r\n            }            \r\n          ],\r\n          \"internalCode\": \"IC0\"\r\n        }\r\n      ],\r\n      \"totalSales\": 0,\r\n      \"totalDiscount\": 10,\r\n      \"netAmount\": -10,\r\n      \"taxTotals\": [\r\n        {\r\n          \"taxType\": \"VAT\",\r\n          \"amount\": 10.5\r\n        }        \r\n      ],\r\n      \"totalAmount\": 23,\r\n      \"signatures\": [\r\n        {\r\n          \"signatureType\": \"I\",\r\n          \"value\": \"MIIGYgYJKoZIhvcNAQcCoIIGUzCCBk8CAQMxDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIID/zCCA/swggLjoAMCAQICEExmZ\\u002B69rsEiVjVCUUMzjcEwDQYJKoZIhvcNAQELBQAwSTELMAkGA1UEBhMCRUcxFDASBgNVBAoTC0VneXB0IFRydXN0MSQwIgYDVQQDExtFZ3lwdCBUcnVzdCBDb3Jwb3JhdGUgQ0EgRzIwHhcNMjAwMzMxMDAwMDAwWhcNMjEwMzMwMjM1OTU5WjBgMRUwEwYDVQQKFAxFZ3lwdCBUcnVzdCAxGDAWBgNVBGEUD1ZBVEVHLTMxMzcxNzkxOTELMAkGA1UEBhMCRUcxIDAeBgNVBAMMF1Rlc3QgU2VhbGluZyBEZW1vIHVzZXIxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApmVGVJtpImeq\\u002BtIJiVWSkIEEOTIcnG1XNYQOYtf5\\u002BDg9eF5H5x1wkgR2G7dvWVXrTsdNv2Q\\u002Bgvml9SdfWxlYxaljg2AuBrsHFjYVEAQFI37EW2K7tbMT7bfxwT1M5tbjxnkTTK12cgwxPr2LBNhHpfXp8SNyWCxpk6eyJb87DveVwCLbAGGXO9mhDj62glVTrCFit7mHC6bZ6MOMAp013B8No9c8xnrKQiOb4Tm2GxBYHFwEcfYUGZNltGZNdVUtu6ty\\u002BNTrSRRC/dILeGHgz6/2pgQPk5OFYRTRHRNVNo\\u002BjG\\u002BnurUYkSWxA4I9CmsVt2FdeBeuvRFs/U1I\\u002BieKg1wIDAQABo4HHMIHEMAkGA1UdEwQCMAAwVAYDVR0fBE0wSzBJoEegRYZDaHR0cDovL21wa2ljcmwuZWd5cHR0cnVzdC5jb20vRWd5cHRUcnVzdENvcnBvcmF0ZUNBRzIvTGF0ZXN0Q1JMLmNybDAdBgNVHQ4EFgQUqzFDImtytsUbghbmtnl2/k4d5jEwEQYJYIZIAYb4QgEBBAQDAgeAMB8GA1UdIwQYMBaAFCInP8ziUIPmu86XJUWXspKN3LsFMA4GA1UdDwEB/wQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAQEAN/d9pnNi9IjMAoxi9A2FpfrWooNcejvOm0usIPj23F988uBa\\u002B2vLVuWrNSC8aJJL9eLIjO9I2ecxRhRiGwp1YBoXJ25GvXvmIT4EN1B/kpZa/M/VIeSeimV/qlmdx/5Sy1ycK\\u002BEFkqojEKrteNAZr5yU/v5stX/x\\u002B5A0yKxrGv6GFmyLT4Mi1xtybjUpTNQXKYa/DUPtB4wO829CmPdCl8gIldIlMoyz0vQFp42PgRXoMpqVKO631wKXDBbplpC7GZ9FewGZHVwQ0ppCX1S27YGYATuhyWb9uZvuJxg9j20tLgy1BWZ2LEgbTaYQ5cZ2bggAzr5JckAqQSotU1LbFDGCAikwggIlAgEBMF0wSTELMAkGA1UEBhMCRUcxFDASBgNVBAoTC0VneXB0IFRydXN0MSQwIgYDVQQDExtFZ3lwdCBUcnVzdCBDb3Jwb3JhdGUgQ0EgRzICEExmZ\\u002B69rsEiVjVCUUMzjcEwCwYJYIZIAWUDBAIBoIGiMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTIwMDYyMjEzMzAyMlowLwYJKoZIhvcNAQkEMSIEIGcZKUxQr2AzfuxfgvTFeCTnzvTWmi8PuoPRiDKia3DyMDcGCyqGSIb3DQEJEAIvMSgwJjAkMCIEIP64tKSYzgTXL9QKwIpQpo5Cj3Lnv7DpFDMbsh7RCAR6MAsGCSqGSIb3DQEBAQSCAQAueKIj1x64G49wSsXWoXA0cjFPMhcQ0zMAn39kRqIv7hJjBrf\\u002BBdzrvqWDIxlKKA04DMRmTFTVHbtTtNQmut12LLLxjFLi\\u002BfnVWbEJPezx\\u002BbPvJEWETrjqW/yh2epWeW1LRy0GgQcyy77Xsz01J3jFe/0AUXKuCKvz\\u002B\\u002BEsNzbDXAki3OnF/zxY87WCEwFF3rW1w5zkqt0pqy7LAQYG/E17DRUD/kV8d\\u002BuXmy1spAIvOtw1wJ5Yj0nvF4tWrU76Ani8oFOP4d65T0g1r7163GTP9xAR67dCaI\\u002BdGo6RHJGbR2HK8cjeoj8FK48T\\u002BKf/t4zDfUAGxLKPk8rU5jTuLZ/0\"\r\n        },\r\n        {\r\n          \"signatureType\": \"S\",\r\n          \"value\": \"MIIGYgYJKoZIhvcNAQcCoIIGUzCCBk8CAQMxDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIID/zCCA/swggLjoAMCAQICEEFkOqRVlVar0F0n3FZOLiIwDQYJKoZIhvcNAQELBQAwSTELMAkGA1UEBhMCRUcxFDASBgNVBAoTC0VneXB0IFRydXN0MSQwIgYDVQQDExtFZ3lwdCBUcnVzdCBDb3Jwb3JhdGUgQ0EgRzIwHhcNMjAwMzMxMDAwMDAwWhcNMjEwMzMwMjM1OTU5WjBgMRUwEwYDVQQKFAxFZ3lwdCBUcnVzdCAxGDAWBgNVBGEUD1ZBVEVHLTExMzMxNzcxMzELMAkGA1UEBhMCRUcxIDAeBgNVBAMMF1Rlc3QgU2VhbGluZyBEZW1vIHVzZXIyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApmVGVJtpImeq\\u002BtIJiVWSkIEEOTIcnG1XNYQOYtf5\\u002BDg9eF5H5x1wkgR2G7dvWVXrTsdNv2Q\\u002Bgvml9SdfWxlYxaljg2AuBrsHFjYVEAQFI37EW2K7tbMT7bfxwT1M5tbjxnkTTK12cgwxPr2LBNhHpfXp8SNyWCxpk6eyJb87DveVwCLbAGGXO9mhDj62glVTrCFit7mHC6bZ6MOMAp013B8No9c8xnrKQiOb4Tm2GxBYHFwEcfYUGZNltGZNdVUtu6ty\\u002BNTrSRRC/dILeGHgz6/2pgQPk5OFYRTRHRNVNo\\u002BjG\\u002BnurUYkSWxA4I9CmsVt2FdeBeuvRFs/U1I\\u002BieKg1wIDAQABo4HHMIHEMAkGA1UdEwQCMAAwVAYDVR0fBE0wSzBJoEegRYZDaHR0cDovL21wa2ljcmwuZWd5cHR0cnVzdC5jb20vRWd5cHRUcnVzdENvcnBvcmF0ZUNBRzIvTGF0ZXN0Q1JMLmNybDAdBgNVHQ4EFgQUqzFDImtytsUbghbmtnl2/k4d5jEwEQYJYIZIAYb4QgEBBAQDAgeAMB8GA1UdIwQYMBaAFCInP8ziUIPmu86XJUWXspKN3LsFMA4GA1UdDwEB/wQEAwIGwDANBgkqhkiG9w0BAQsFAAOCAQEAxE3KpyYlPy/e3\\u002B6jfz5RqlLhRLppWpRlKYUvH1uIhCNRuWaYYRchw1xe3jn7bLKbNrUmey\\u002BMRwp1hZptkxFMYKTIEnNjOKCrLmVIuPFcfLXAQFq5vgLDSbnUhG/r5D\\u002B50ndPucyUPhX3gw8gFlA1R\\u002BtdNEoeKqYSo9v3p5qNANq12OuZbkhPg6sAD4dojWoNdlkc8J2ML0eq4a5AQvb4yZVb\\u002BezqJyqKj83RekRZi0kMxoIm8l82CN8I/Bmp6VVNJRhQKhSeb7ShpdkZcMwcfKdDw6LW02/XcmzVl8NBBbLjKSJ/jxdL1RxPPza7RbGqSx9pfyav5\\u002BAxO9sXnXXc5jGCAikwggIlAgEBMF0wSTELMAkGA1UEBhMCRUcxFDASBgNVBAoTC0VneXB0IFRydXN0MSQwIgYDVQQDExtFZ3lwdCBUcnVzdCBDb3Jwb3JhdGUgQ0EgRzICEEFkOqRVlVar0F0n3FZOLiIwCwYJYIZIAWUDBAIBoIGiMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTIwMDYyMjEzMzAyMlowLwYJKoZIhvcNAQkEMSIEIOw3Dsuh4y9TgZ9Y0iis6PxMj31enYBq8KfWNDggQkgAMDcGCyqGSIb3DQEJEAIvMSgwJjAkMCIEIAJA8uO/ek3l9i3ZOgRtPhGWwwFYljbeJ7yAgEnyYNCWMAsGCSqGSIb3DQEBAQSCAQCQgEFn2JMXk3\\u002B3af0n8n/ce6V20u/tpklaWdwN8udUJo62vVuhrDYmUxlHAoUJZ6UQQLBSd2bDc0M1l/E3q0Nf1Q1g0qTchCfPUK1NnAG/\\u002Bf\\u002BDO6C9\\u002B/L6kgLwchoG6\\u002BEkWelW6g03tLABLN5hqU35fV0dyraIACTDIzf0BcazuVMoYHmjNZMZefOPmEmuuiNRnd6Ni2E1qwcTGbQRP4aEsju5CUwIszE6FmaHzGoHeuDhIMUT1zsbZJUq7TF477gIs42bhNw/SFxF0Zs2mOKz7Mhi2qRHlLB\\u002BkZsQzAYLJWVltdwboGLXLzJ6AJ3VFOKNLS6qTUn6INs0EfTkHvbP\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documentsubmissions",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documentsubmissions"
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/05-submit-documents/).\r\n\r\nRemember that you can include multiple documents within the same submission."
+			},
+			"response": []
+		},
+		{
+			"name": "5.2 Submit Documents (XML)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<submission>\r\n    <documents>\r\n        <document>\r\n            <issuer>\r\n                <type>B</type>\r\n                <id>232232</id>\r\n                <name>Issuer Name 0</name>\r\n                <branchAddress>\r\n                    <addressLine1>Address 2-0 line 1</addressLine1>\r\n                    <addressLine2>Address 2-0 line 2</addressLine2>\r\n                    <regionCity>Cairo</regionCity>\r\n                    <postalCode>098607</postalCode>\r\n                    <country>EG</country>\r\n                    <branchID>BID0</branchID>\r\n                </branchAddress>\r\n            </issuer>\r\n            <receiver>\r\n                <type>B</type>\r\n                <id>232231</id>\r\n                <name>Receiver name 0</name>\r\n                <address>\r\n                    <addressLine1>Address 1-0 line 1</addressLine1>\r\n                    <addressLine2>Address 1-0 line 2</addressLine2>\r\n                    <regionCity>Cairo</regionCity>\r\n                    <postalCode>098607</postalCode>\r\n                    <country>EGY</country>\r\n                </address>\r\n            </receiver>\r\n            <documentType>I</documentType>\r\n            <documentTypeVersion>1.0</documentTypeVersion>\r\n            <dateTimeIssued>2002-05-30T09:30:10Z</dateTimeIssued>\r\n            <taxActivityCode>ACC0</taxActivityCode>\r\n            <internalID>IID0</internalID>\r\n            <poReference>1230</poReference>\r\n            <references>\r\n                <reference>X16CZ7SMVBIU</reference>\r\n                <reference>X75CZ7SMVBIU</reference>\r\n                <reference>X92CZ5SMVBIU</reference>\r\n            </references>\r\n            <invoiceLines>\r\n                <invoiceLine>\r\n                    <description>Invoice line description 0</description>\r\n                    <itemType>IT0</itemType>\r\n                    <itemCode>4000001012978</itemCode>\r\n                    <unitType>UT0</unitType>\r\n                    <quantity>10</quantity>\r\n                    <unitValue>\r\n                        <currencySold>EUR</currencySold>\r\n                        <currencyEGP>10</currencyEGP>\r\n                        <currencyExchangeRate>10</currencyExchangeRate>\r\n                    </unitValue>\r\n                    <factoryUnitValue>\r\n                        <currencySold>EUR</currencySold>\r\n                        <currencyEGP>10</currencyEGP>\r\n                        <currencyExchangeRate>10</currencyExchangeRate>\r\n                    </factoryUnitValue>\r\n                    <total>0</total>\r\n                    <discount>\r\n                        <rate>10</rate>\r\n                        <amount>10</amount>\r\n                    </discount>\r\n                    <taxableItems>\r\n                        <taxableItem>\r\n                            <taxType>VAT</taxType>\r\n                            <amount>10</amount>\r\n                            <reason>tax 1</reason>\r\n                            <rate>10</rate>\r\n                        </taxableItem>\r\n                        <taxableItem>\r\n                            <taxType>AMT</taxType>\r\n                            <amount>11</amount>\r\n                            <reason>tax 2</reason>\r\n                            <rate>13</rate>\r\n                        </taxableItem>\r\n                        <taxableItem>\r\n                            <taxType>AET</taxType>\r\n                            <amount>12</amount>\r\n                            <reason>tax 3</reason>\r\n                            <rate>14</rate>\r\n                        </taxableItem>\r\n                    </taxableItems>\r\n                    <internalCode>IC0</internalCode>\r\n                </invoiceLine>\r\n            </invoiceLines>\r\n            <totalSales>0</totalSales>\r\n            <totalDiscount>10</totalDiscount>\r\n            <netAmount>-10</netAmount>\r\n            <taxTotals>\r\n                <taxTotal>\r\n                    <taxType>VAT</taxType>\r\n                    <amount>10</amount>\r\n                </taxTotal>\r\n                <taxTotal>\r\n                    <taxType>AMT</taxType>\r\n                    <amount>11</amount>\r\n                </taxTotal>\r\n                <taxTotal>\r\n                    <taxType>AET</taxType>\r\n                    <amount>12</amount>\r\n                </taxTotal>\r\n            </taxTotals>\r\n            <totalAmount>23</totalAmount>\r\n            <signatures>\r\n                <signature>\r\n                    <signatureType>I</signatureType>\r\n                    <value>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</value>\r\n                </signature>\r\n                <signature>\r\n                    <signatureType>S</signatureType>\r\n                    <value>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</value>\r\n                </signature>\r\n            </signatures>\r\n        </document>\r\n    </documents>\r\n</submission>"
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documentsubmissions",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documentsubmissions"
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/05-submit-documents/)\r\n\r\nRemember that you can include multiple documents within the same submission."
+			},
+			"response": []
+		},
+		{
+			"name": "6. Cancel Document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"status\":\"cancelled\",\n\t\"reason\":\"some reason for cancelled document\"\n}"
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1.0/documents/state/:documentUUID/state",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1.0",
+						"documents",
+						"state",
+						":documentUUID",
+						"state"
+					],
+					"variable": [
+						{
+							"key": "documentUUID",
+							"value": "VY5NP3EKKTQ1D1YHR7RVGRBE10"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/06-cancel-document/)"
+			},
+			"response": []
+		},
+		{
+			"name": "7. Reject Document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"status\":\"rejected\",\n\t\"reason\":\"some reason for rejected document\"\n}"
+				},
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1.0/documents/state/:documentUUID/state",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1.0",
+						"documents",
+						"state",
+						":documentUUID",
+						"state"
+					],
+					"variable": [
+						{
+							"key": "documentUUID",
+							"value": "VY5NP3EKKTQ1D1YHR7RVGRBE10"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/07-reject-document/)"
+			},
+			"response": []
+		},
+		{
+			"name": "8. Get Recent Documents",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "PageSize",
+						"value": "10"
+					},
+					{
+						"key": "PageNo",
+						"value": "1"
+					}
+				],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1.0/documents/recent",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1.0",
+						"documents",
+						"recent"
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/08-get-recent-documents/)"
+			},
+			"response": []
+		},
+		{
+			"name": "9. Request Document Package [Not part of Private Preview]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/09-request-document-package/)"
+			},
+			"response": []
+		},
+		{
+			"name": "10. Get Package Requests [Not part of Private Preview]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/10-get-package-requests/)"
+			},
+			"response": []
+		},
+		{
+			"name": "11. Get Document Package [Not part of Private Preview]",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/11-get-document-package/)"
+			},
+			"response": []
+		},
+		{
+			"name": "12. Get Document",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documents/:documentUUID/raw",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documents",
+						":documentUUID",
+						"raw"
+					],
+					"variable": [
+						{
+							"key": "documentUUID",
+							"value": "WB30XPP2NVKXD79FT3B8CRBE10"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/12-get-document/)"
+			},
+			"response": []
+		},
+		{
+			"name": "13. Get Submission",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "PageSize",
+						"value": "10"
+					},
+					{
+						"key": "PageNo",
+						"value": "1"
+					}
+				],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1.0/documentSubmissions/:submitionUUID?PageSize=1",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1.0",
+						"documentSubmissions",
+						":submitionUUID"
+					],
+					"query": [
+						{
+							"key": "PageSize",
+							"value": "1"
+						}
+					],
+					"variable": [
+						{
+							"key": "submitionUUID",
+							"value": "6MXS4XGCD7YF98BGN6PC6SBE10"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/13-get-submission/)"
+			},
+			"response": []
+		},
+		{
+			"name": "15. Get Document Printout (PDF)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documents/:documentUUID/pdf",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documents",
+						":documentUUID",
+						"pdf"
+					],
+					"variable": [
+						{
+							"key": "documentUUID",
+							"value": ""
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/14-flag-document/)"
+			},
+			"response": []
+		},
+		{
+			"name": "18. Get Notifications",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/notifications/taxpayer?pageSize=10&pageNo=1&dateFrom=&dateTo=&type=&language=en&status=&channel=",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"notifications",
+						"taxpayer"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "pageNo",
+							"value": "1"
+						},
+						{
+							"key": "dateFrom",
+							"value": ""
+						},
+						{
+							"key": "dateTo",
+							"value": ""
+						},
+						{
+							"key": "type",
+							"value": ""
+						},
+						{
+							"key": "language",
+							"value": "en"
+						},
+						{
+							"key": "status",
+							"value": ""
+						},
+						{
+							"key": "channel",
+							"value": ""
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/18-get-notifications/)"
+			},
+			"response": []
+		},
+		{
+			"name": "20. Get Document Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{generatedAccessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{apiBaseUrl}}/api/v1/documents/:documentUUID/details",
+					"host": [
+						"{{apiBaseUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"documents",
+						":documentUUID",
+						"details"
+					],
+					"variable": [
+						{
+							"key": "documentUUID",
+							"value": "NFTMWAMM7WT50SPCRC57Q3GE10"
+						}
+					]
+				},
+				"description": "For more details refer to this [URL](https://sdk.sit.invoicing.eta.gov.eg/api/20-get-document-details/)"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
